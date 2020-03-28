@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Corona Tracker</string>
+
+    <!--Titles-->
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+
 </resources>
