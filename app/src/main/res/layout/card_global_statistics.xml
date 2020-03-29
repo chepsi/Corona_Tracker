@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="globalStatsVM"
+            type="com.chepsi.coronatracker.ui.home.HomeViewModel" />
+    </data>
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardGlobalCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/alternateWhite">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutGlobalCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/globalTotalCasesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalTotalCases)}"
+                app:layout_constraintEnd_toStartOf="@+id/globalActiveCaseTV"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Total Cases" />
+
+            <TextView
+                android:id="@+id/globalActiveCaseTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalActiveCases)}"
+                app:layout_constraintEnd_toStartOf="@+id/globalRecoveriesTV"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/globalTotalCasesTV"
+                app:layout_constraintTop_toTopOf="@+id/globalTotalCasesTV"
+                tools:text="Active Cases" />
+
+            <TextView
+                android:id="@+id/globalRecoveriesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalRecoveredCases)}"
+                app:layout_constraintEnd_toStartOf="@+id/globalDeathsTV"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/globalActiveCaseTV"
+                app:layout_constraintTop_toTopOf="@+id/globalActiveCaseTV"
+                tools:text="TotalRecoveries" />
+
+            <TextView
+                android:id="@+id/globalDeathsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalDeaths)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/globalRecoveriesTV"
+                app:layout_constraintTop_toTopOf="@+id/globalRecoveriesTV"
+                tools:text="Global Deaths" />
+
+            <TextView
+                android:id="@+id/globalNewCasesTodayTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalNewCases)}"
+                app:layout_constraintEnd_toEndOf="@+id/globalTotalCasesTV"
+                app:layout_constraintStart_toStartOf="@+id/globalTotalCasesTV"
+                app:layout_constraintTop_toBottomOf="@+id/globalTotalCasesTV"
+                tools:text="New Cases" />
+
+            <TextView
+                android:id="@+id/globalSeriousCasesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalSeriousCases)}"
+                app:layout_constraintStart_toStartOf="@+id/globalActiveCaseTV"
+                app:layout_constraintTop_toTopOf="@+id/globalNewCasesTodayTV"
+                tools:text="Serious Cases" />
+
+            <TextView
+                android:id="@+id/globalUnresolvedCasesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalUnresolvedCases)}"
+                app:layout_constraintStart_toStartOf="@+id/globalRecoveriesTV"
+                app:layout_constraintTop_toTopOf="@+id/globalSeriousCasesTV"
+                tools:text="Unresolved cases" />
+
+            <TextView
+                android:id="@+id/globalNewDeathsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{String.valueOf(globalStatsVM.globalNewDeaths)}"
+                app:layout_constraintStart_toStartOf="@+id/globalDeathsTV"
+                app:layout_constraintTop_toTopOf="@+id/globalUnresolvedCasesTV"
+                tools:text="New Deaths" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

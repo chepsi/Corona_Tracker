@@ -6,12 +6,5 @@ class RestRepository(private val coronaTrackerApi: CoronaTrackerApi) {
 
     suspend fun getGlobalStatistic() = coronaTrackerApi.getGlobalStats()
 
-    suspend fun getCountriesStatistic() = coronaTrackerApi.getCountriesStatistic()
-
-    suspend fun getCountryStatistic(countryCode: String) = coronaTrackerApi.getCountryStatistic(countryCode = countryCode)
-
-    suspend fun getVirusNews() = coronaTrackerApi.getVirusNews()
-
-    suspend fun getFullTimeline() = coronaTrackerApi.getFullTimelineData()
-
+    suspend fun getStatisticFromCountry(countryCode: String) = coronaTrackerApi.getCountryStats(countryCode = countryCode)
 }

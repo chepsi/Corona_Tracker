@@ -2,12 +2,9 @@ package com.chepsi.coronatracker.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GlobalStatistics(
-    @SerializedName("results")
-    val results: ArrayList<GlobalResults>,
-
-    @SerializedName("stat")
-    val stat: String
+data class StatSource(
+    @SerializedName("url")
+    val statSource: String
 )
 
 // {
