@@ -5,18 +5,19 @@ import androidx.lifecycle.viewModelScope
 import com.chepsi.coronatracker.data.model.GlobalResults
 import com.chepsi.coronatracker.data.repository.RestRepository
 import com.chepsi.coronatracker.ui.base.BaseViewModel
+import com.chepsi.coronatracker.utils.UiUtils
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(){
-    val globalTotalCases = MutableLiveData<Int>()
-    val globalRecoveredCases = MutableLiveData<Int>()
-    val globalUnresolvedCases = MutableLiveData<Int>()
-    val globalDeaths = MutableLiveData<Int>()
-    val globalNewCases = MutableLiveData<Int>()
-    val globalNewDeaths = MutableLiveData<Int>()
-    val globalActiveCases = MutableLiveData<Int>()
-    val globalSeriousCases = MutableLiveData<Int>()
+    val globalTotalCases = MutableLiveData<String>()
+    val globalRecoveredCases = MutableLiveData<String>()
+    val globalUnresolvedCases = MutableLiveData<String>()
+    val globalDeaths = MutableLiveData<String>()
+    val globalNewCases = MutableLiveData<String>()
+    val globalNewDeaths = MutableLiveData<String>()
+    val globalActiveCases = MutableLiveData<String>()
+    val globalSeriousCases = MutableLiveData<String>()
 
     fun fetchGlobalStatsData() = viewModelScope.launch{
         //val countryCode = "KE"
@@ -28,15 +29,14 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
 
     private fun setData(globalResultsArray: ArrayList<GlobalResults>){
         val globalResults = globalResultsArray.first()
-        globalTotalCases.postValue(globalResults.totalCases)
-        globalTotalCases.postValue(globalResults.totalCases)
-        globalRecoveredCases.postValue(globalResults.totalRecovered)
-        globalUnresolvedCases.postValue(globalResults.totalUnresolved)
-        globalDeaths.postValue(globalResults.totalDeaths)
-        globalNewCases.postValue(globalResults.totalNewCasesToday)
-        globalNewDeaths.postValue(globalResults.totalNewDeathsToday)
-        globalActiveCases.postValue(globalResults.totalActiveCases)
-        globalSeriousCases.postValue(globalResults.totalSeriousCases)
+        globalTotalCases.postValue(UiUtils.stringFormatter(globalResults.totalCases))
+        globalRecoveredCases.postValue(UiUtils.stringFormatter(globalResults.totalRecovered))
+        globalUnresolvedCases.postValue(UiUtils.stringFormatter(globalResults.totalUnresolved))
+        globalDeaths.postValue(UiUtils.stringFormatter(globalResults.totalDeaths))
+        globalNewCases.postValue(UiUtils.stringFormatter(globalResults.totalNewCasesToday))
+        globalNewDeaths.postValue(UiUtils.stringFormatter(globalResults.totalNewDeathsToday))
+        globalActiveCases.postValue(UiUtils.stringFormatter(globalResults.totalActiveCases))
+        globalSeriousCases.postValue(UiUtils.stringFormatter(globalResults.totalSeriousCases))
     }
 }
 
