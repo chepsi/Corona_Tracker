@@ -17,8 +17,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
         binding.viewModel = viewModel
 
         setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
     }
 
     override fun getRoot(): View {
