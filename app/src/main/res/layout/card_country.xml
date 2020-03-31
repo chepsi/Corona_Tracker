@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
-    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="cardCountryVM"
+            type="com.chepsi.coronatracker.ui.home.HomeViewModel" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/countryCV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,38 +22,51 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp">
 
-
             <ProgressBar
                 android:id="@+id/activeCasesPB"
                 style="?android:attr/progressBarStyle"
-                android:indeterminate="false"
+                android:indeterminate="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:progress="40"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/countryNewCasesTV"
+                android:id="@+id/countryNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo_thambi"
                 android:textColor="@color/darkGrey"
+                android:text="@{cardCountryVM.countryName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/activeCasesPB"
                 app:layout_constraintTop_toTopOf="@+id/activeCasesPB"
-                tools:text="New Cases" />
+                tools:text="Kenya" />
 
             <TextView
-                android:id="@+id/countryTreatedCasesTV"
+                android:id="@+id/newCasesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/baloo_thambi"
                 android:textColor="@color/darkGrey"
-                app:layout_constraintStart_toStartOf="@+id/countryNewCasesTV"
-                app:layout_constraintTop_toBottomOf="@+id/countryNewCasesTV"
+                android:text="@{`New cases: ` + cardCountryVM.countryNewCases}"
+                app:layout_constraintStart_toStartOf="@+id/countryNameTV"
+                app:layout_constraintTop_toBottomOf="@+id/countryNameTV"
+                tools:text="New cases" />
+
+            <TextView
+                android:id="@+id/countryTreatedCases"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/baloo_thambi"
+                android:text="@{`Treated cases: ` + cardCountryVM.countryTreatedCases}"
+                app:layout_constraintStart_toStartOf="@+id/newCasesTV"
+                app:layout_constraintTop_toBottomOf="@+id/newCasesTV"
                 tools:text="Treated cases" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -16,6 +16,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(){
         binding.lifecycleOwner = this
 
         viewModel.fetchGlobalStatsData()
+        viewModel.fetchCountriesStatistics()
+        viewModel.fetchCountryTimeline()
     }
 
     override fun getTitle(): Int {

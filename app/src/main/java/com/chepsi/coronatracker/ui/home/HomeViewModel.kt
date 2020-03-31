@@ -2,6 +2,7 @@ package com.chepsi.coronatracker.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.chepsi.coronatracker.data.model.CountryStatistics
 import com.chepsi.coronatracker.data.model.GlobalResults
 import com.chepsi.coronatracker.data.repository.RestRepository
 import com.chepsi.coronatracker.ui.base.BaseViewModel
@@ -18,6 +19,9 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
     val globalNewDeaths = MutableLiveData<String>()
     val globalActiveCases = MutableLiveData<String>()
     val globalSeriousCases = MutableLiveData<String>()
+    val countryName = MutableLiveData<String>()
+    val countryNewCases = MutableLiveData<String>()
+    val countryTreatedCases = MutableLiveData<String>()
 
     fun fetchGlobalStatsData() = viewModelScope.launch{
         //val countryCode = "KE"
@@ -27,6 +31,15 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
         setData(globalStats.results)
     }
 
+    fun fetchCountriesStatistics() = viewModelScope.launch {
+        val countryStats = restRepository.getStatisticFromCountry("KE")
+        setCountryData(countryStats)
+    }
+
+    fun fetchCountryTimeline() = viewModelScope.launch {
+        val countryTimeline = restRepository.getCountryTimeline("KE")
+
+    }
     private fun setData(globalResultsArray: ArrayList<GlobalResults>){
         val globalResults = globalResultsArray.first()
         globalTotalCases.postValue(UiUtils.stringFormatter(globalResults.totalCases))
@@ -38,23 +51,11 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
         globalActiveCases.postValue(UiUtils.stringFormatter(globalResults.totalActiveCases))
         globalSeriousCases.postValue(UiUtils.stringFormatter(globalResults.totalSeriousCases))
     }
-}
 
-//{
-//   "results":[
-//      {
-//         "total_cases":686276,
-//         "total_recovered":146694,
-//         "total_unresolved":508224,
-//         "total_deaths":32277,
-//         "total_new_cases_today":23194,
-//         "total_new_deaths_today":1420,
-//         "total_active_cases":507305,
-//         "total_serious_cases":25426,
-//         "source":{
-//            "url":"https://thevirustracker.com/"
-//         }
-//      }
-//   ],
-//   "stat":"ok"
-//}
+    private fun setCountryData(countryStatistics: CountryStatistics){
+        val countryData = countryStatistics.countryData.first()
+        countryName.postValue(countryStatistics.countryData.first().info.title)
+        countryNewCases.postValue(UiUtils.stringFormatter(countryData.totalNewCasesToday))
+        countryTreatedCases.postValue(UiUtils.stringFormatter(countryData.totalRecovered))
+    }
+}
