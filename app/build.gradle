@@ -42,7 +42,7 @@ dependencies {
     //Retrofit for network calls
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     //Gson converter
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     //OkHTTP interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.4.0")
 
