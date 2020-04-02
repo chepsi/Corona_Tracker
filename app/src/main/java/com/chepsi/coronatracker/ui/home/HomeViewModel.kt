@@ -31,14 +31,13 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
         setData(globalStats.results)
     }
 
-    fun fetchCountriesStatistics() = viewModelScope.launch {
-        val countryStats = restRepository.getStatisticFromCountry("KE")
+    fun fetchCountriesStatistics(countryCode: String) = viewModelScope.launch {
+        val countryStats = restRepository.getStatisticFromCountry(countryCode)
         setCountryData(countryStats)
     }
 
-    fun fetchCountryTimeline() = viewModelScope.launch {
-        val countryTimeline = restRepository.getCountryTimeline("KE")
-
+    fun fetchCountryTimeline(countryCode: String) = viewModelScope.launch {
+        val countryTimeline = restRepository.getCountryTimeline(countryCode)
     }
     private fun setData(globalResultsArray: ArrayList<GlobalResults>){
         val globalResults = globalResultsArray.first()

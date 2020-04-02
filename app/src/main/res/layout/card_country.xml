@@ -22,15 +22,21 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp">
 
-            <ProgressBar
-                android:id="@+id/activeCasesPB"
-                style="?android:attr/progressBarStyle"
-                android:indeterminate="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:progress="40"
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/countryCodePicker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:ccp_rememberLastSelection="true"
+                app:ccpDialog_showPhoneCode="false"
+                app:ccp_showPhoneCode="false"
+                app:ccp_defaultNameCode="KE"
+                app:ccp_contentColor="@color/textColor"
+                app:ccp_autoDetectCountry="true"
+                app:ccpDialog_textColor="@color/textColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/countryNameTV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,22 +44,24 @@
                 android:id="@+id/countryNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/baloo_thambi"
-                android:textColor="@color/textColor"
                 android:text="@{cardCountryVM.countryName}"
+                android:textColor="@color/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/activeCasesPB"
-                app:layout_constraintTop_toTopOf="@+id/activeCasesPB"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Kenya" />
 
             <TextView
                 android:id="@+id/newCasesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/baloo_thambi"
-                android:textColor="@color/textColor"
                 android:text="@{`New cases: ` + cardCountryVM.countryNewCases}"
+                android:textColor="@color/textColor"
                 app:layout_constraintStart_toStartOf="@+id/countryNameTV"
                 app:layout_constraintTop_toBottomOf="@+id/countryNameTV"
                 tools:text="New cases" />
@@ -62,13 +70,23 @@
                 android:id="@+id/countryTreatedCases"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/baloo_thambi"
-                android:textColor="@color/textColor"
                 android:text="@{`Treated cases: ` + cardCountryVM.countryTreatedCases}"
+                android:textColor="@color/textColor"
                 app:layout_constraintStart_toStartOf="@+id/newCasesTV"
                 app:layout_constraintTop_toBottomOf="@+id/newCasesTV"
                 tools:text="Treated cases" />
+
+            <TextView
+                android:id="@+id/linkToSeeOnGraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/see_graph"
+                android:textColor="@android:color/holo_blue_bright"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countryTreatedCases" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

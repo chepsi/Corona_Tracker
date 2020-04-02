@@ -16,8 +16,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(){
         binding.lifecycleOwner = this
 
         viewModel.fetchGlobalStatsData()
-        viewModel.fetchCountriesStatistics()
-        viewModel.fetchCountryTimeline()
+        viewModel.fetchCountriesStatistics(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+        viewModel.fetchCountryTimeline(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+
+        binding.countryCardInclude.countryCodePicker.setOnCountryChangeListener {
+            viewModel.fetchCountryTimeline(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+            viewModel.fetchCountriesStatistics(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+        }
     }
 
     override fun getTitle(): Int {
