@@ -1,12 +1,17 @@
 package com.chepsi.coronatracker.ui.home
 
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
+import com.chepsi.coronatracker.R
 import com.chepsi.coronatracker.data.model.CountryStatistics
 import com.chepsi.coronatracker.data.model.GlobalResults
 import com.chepsi.coronatracker.data.repository.RestRepository
 import com.chepsi.coronatracker.ui.base.BaseViewModel
 import com.chepsi.coronatracker.utils.UiUtils
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -22,11 +27,11 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
     val countryName = MutableLiveData<String>()
     val countryNewCases = MutableLiveData<String>()
     val countryTreatedCases = MutableLiveData<String>()
+    lateinit var countryCodeString: String
+    lateinit var countryTimeline : CountryStatistics
 
     fun fetchGlobalStatsData() = viewModelScope.launch{
-        //val countryCode = "KE"
         val globalStats = restRepository.getGlobalStatistic()
-        //val countryStat = restRepository.getStatisticFromCountry(countryCode)
         Timber.e(globalStats.toString())
         setData(globalStats.results)
     }
@@ -37,8 +42,10 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
     }
 
     fun fetchCountryTimeline(countryCode: String) = viewModelScope.launch {
-        val countryTimeline = restRepository.getCountryTimeline(countryCode)
+        countryCodeString = countryCode
+        countryTimeline = restRepository.getCountryTimeline(countryCode)
     }
+
     private fun setData(globalResultsArray: ArrayList<GlobalResults>){
         val globalResults = globalResultsArray.first()
         globalTotalCases.postValue(UiUtils.stringFormatter(globalResults.totalCases))
@@ -52,9 +59,22 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
     }
 
     private fun setCountryData(countryStatistics: CountryStatistics){
-        val countryData = countryStatistics.countryData.first()
-        countryName.postValue(countryStatistics.countryData.first().info.title)
-        countryNewCases.postValue(UiUtils.stringFormatter(countryData.totalNewCasesToday))
-        countryTreatedCases.postValue(UiUtils.stringFormatter(countryData.totalRecovered))
+        try {
+            val countryData = countryStatistics.countryData.first()
+            countryName.postValue(countryStatistics.countryData.first().info.title)
+            countryNewCases.postValue(UiUtils.stringFormatter(countryData.totalNewCasesToday))
+            countryTreatedCases.postValue(UiUtils.stringFormatter(countryData.totalRecovered))
+        }
+        catch (e: IllegalArgumentException){
+            showSnackBar("We don't have any results from the selected country")
+            Timber.e(e)
+        }
+    }
+
+    fun linkToViewGraph(view: View){
+        view.findNavController().navigate(R.id.action_homeFragment_to_graphFragment, bundleOf(
+            "countryCode" to countryCodeString,
+            "countryTimeline" to  Gson().toJson(countryTimeline)
+        ))
     }
 }

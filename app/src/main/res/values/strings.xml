@@ -5,6 +5,8 @@
     <string name="home">Home</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
+    <string name="graph">Graph</string>
+
     <string name="see_graph"><u>See graph</u></string>
 
 </resources>
