@@ -27,6 +27,7 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
     val countryName = MutableLiveData<String>()
     val countryNewCases = MutableLiveData<String>()
     val countryTreatedCases = MutableLiveData<String>()
+    val isLoading = MutableLiveData<Boolean>()
     lateinit var countryCodeString: String
     lateinit var countryTimeline : CountryStatistics
 
@@ -56,9 +57,11 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
         globalNewDeaths.postValue(UiUtils.stringFormatter(globalResults.totalNewDeathsToday))
         globalActiveCases.postValue(UiUtils.stringFormatter(globalResults.totalActiveCases))
         globalSeriousCases.postValue(UiUtils.stringFormatter(globalResults.totalSeriousCases))
+        isLoading.postValue(false)
     }
 
     private fun setCountryData(countryStatistics: CountryStatistics){
+        isLoading.postValue(false)
         try {
             val countryData = countryStatistics.countryData.first()
             countryName.postValue(countryStatistics.countryData.first().info.title)
@@ -67,6 +70,9 @@ class HomeViewModel(private val restRepository: RestRepository) : BaseViewModel(
         }
         catch (e: IllegalArgumentException){
             showSnackBar("We don't have any results from the selected country")
+            Timber.e(e)
+        }
+        catch (e: NullPointerException){
             Timber.e(e)
         }
     }

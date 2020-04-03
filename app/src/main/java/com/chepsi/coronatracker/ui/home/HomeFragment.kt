@@ -2,6 +2,7 @@ package com.chepsi.coronatracker.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import com.chepsi.coronatracker.R
 import com.chepsi.coronatracker.databinding.FragmentHomeBinding
 import com.chepsi.coronatracker.ui.base.BaseFragment
@@ -15,14 +16,19 @@ class HomeFragment : BaseFragment<HomeViewModel>(){
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.fetchGlobalStatsData()
-        viewModel.fetchCountriesStatistics(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
-        viewModel.fetchCountryTimeline(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+        fetchData()
 
         binding.countryCardInclude.countryCodePicker.setOnCountryChangeListener {
-            viewModel.fetchCountryTimeline(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
-            viewModel.fetchCountriesStatistics(binding.countryCardInclude.countryCodePicker.selectedCountryNameCode)
+            fetchData()
         }
+
+        binding.homeSwipeRefresh.setOnRefreshListener {
+            fetchData()
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            binding.homeSwipeRefresh.isRefreshing = it
+        })
     }
 
     override fun getTitle(): Int {
@@ -33,4 +39,11 @@ class HomeFragment : BaseFragment<HomeViewModel>(){
         return R.layout.fragment_home
     }
 
+    private fun fetchData(){
+        viewModel.isLoading.postValue(true)
+        val selectedCountryCode = binding.countryCardInclude.countryCodePicker.selectedCountryNameCode
+        viewModel.fetchGlobalStatsData()
+        viewModel.fetchCountriesStatistics(selectedCountryCode)
+        viewModel.fetchCountryTimeline(selectedCountryCode)
+    }
 }
