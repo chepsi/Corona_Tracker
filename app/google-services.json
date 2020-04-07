@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "200792734558",
+    "firebase_url": "https://virustracker-71776.firebaseio.com",
+    "project_id": "virustracker-71776",
+    "storage_bucket": "virustracker-71776.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200792734558:android:ba2ecd62ad06fa273f2dcf",
+        "android_client_info": {
+          "package_name": "com.chepsi.coronatracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200792734558-9neso6frvhnkvfc0d3j3v3e6npaaejq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFlPQKK_vrrvLMNV5Ps3RyPm5KGekWSPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200792734558-9neso6frvhnkvfc0d3j3v3e6npaaejq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
