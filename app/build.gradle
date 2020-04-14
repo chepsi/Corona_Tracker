@@ -29,8 +29,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable(true)
         }
     }
 
@@ -39,7 +42,7 @@ android {
 dependencies {
     def nav_version = "2.3.0-alpha04"
     def koin_version = "2.1.5"
-    def material_version = "1.2.0-alpha05"
+    def material_version = "1.2.0-alpha06"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -90,7 +93,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     // Add the Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta03'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
 
     //Navigation component test helper
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
