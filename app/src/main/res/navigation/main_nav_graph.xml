@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.chepsi.coronatracker.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/graphFragment"
+        android:name="com.chepsi.coronatracker.ui.graph.GraphFragment"
+        android:label="@string/graph"
+        tools:layout="@layout/fragment_graph"/>
+
+</navigation>
